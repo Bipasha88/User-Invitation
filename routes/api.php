@@ -25,3 +25,4 @@ Route::post('login', [TokenController::class, 'login']);
 Route::post('invitation', [InviteController::class,'invite']);
 Route::get('accept/{token}',[UserController::class,'checkInvitation'])->name('accept');
 Route::post('accept-invite/{token}',[UserController::class,'acceptInvitation']);
+Route::post('confirm-registration/{token}',[UserController::class,'confirmRegistration']);

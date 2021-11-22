@@ -11,4 +11,15 @@ class UserServices implements IUserService{
         $this->userRepository = $userRepository;
     }
 
+    public function create($email,$password,$user_name){
+        return $this->userRepository->create([
+            'email' => $email,
+            'password' => bcrypt($password),
+            'user_name' => $user_name,
+        ]);
+    }
+
+    public function getUser($email){
+        return $this->userRepository->where("email",$email)->first();
+    }
 }
