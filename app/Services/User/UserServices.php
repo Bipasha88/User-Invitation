@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Repositories\User\IUserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class UserServices implements IUserService{
 
@@ -21,5 +22,9 @@ class UserServices implements IUserService{
 
     public function getUser($email){
         return $this->userRepository->where("email",$email)->first();
+    }
+
+    public function update($data){
+        $this->userRepository->updateById(Auth::id(),$data);
     }
 }

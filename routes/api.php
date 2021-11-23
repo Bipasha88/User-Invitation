@@ -22,7 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login', [TokenController::class, 'login']);
-Route::post('invitation', [InviteController::class,'invite']);
-Route::get('accept/{token}',[UserController::class,'checkInvitation'])->name('accept');
-Route::post('accept-invite/{token}',[UserController::class,'acceptInvitation']);
-Route::post('confirm-registration/{token}',[UserController::class,'confirmRegistration']);
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::post('invitation', [InviteController::class, 'invite']);
+    Route::post('update-profile',[UserController::class,'updateProfile']);
+});
+Route::get('accept/{token}', [UserController::class, 'checkInvitation'])->name('accept');
+Route::post('accept-invite/{token}', [UserController::class, 'acceptInvitation']);
+Route::post('confirm-registration/{token}', [UserController::class, 'confirmRegistration']);
